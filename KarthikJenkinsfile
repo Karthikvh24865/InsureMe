@@ -23,19 +23,19 @@ pipeline {
      stage('Docker Image Creation') {
       steps {
            echo 'This is for Docker image build'
-           sh 'sudo docker build -t karthik/insureme:latest .'
+           sh 'docker build -t karthik/insureme:latest .'
             }
           }
      stage('Login to Dockerhub') {
       steps {
              withCredentials([usernamePassword(credentialsId: 'dockeruser', passwordVariable: 'password', usernameVariable: 'username')]) {
-           sh 'sudo docker login -u karthikhiremath -p ${password}'
+           sh 'docker login -u karthikhiremath -p ${password}'
                          }
                    }
                }
      stage('Push the Docker image') {
       steps {
-        sh 'sudo docker push karthik/insureme:latest'
+        sh 'docker push karthik/insureme:latest'
                                 }
             }
       stage('Ansible Playbook') {
